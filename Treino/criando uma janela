@@ -1,0 +1,87 @@
+import pygame
+import math
+#----------------------------------------------------------------
+#INICIALIZAÇÃO
+#----------------------------------------------------------------
+pygame.init()
+
+LARGURA, ALTURA = 600, 600
+tela = pygame.display.set_mode((LARGURA, ALTURA))
+pygame.display.set_caption("criando um desenho")
+clock = pygame.time.Clock()
+CENTRO = (LARGURA // 2, ALTURA // 2 )
+
+#--------------------------------------------------------------------
+#FUNÇÃO: CRIAR POLÍGONO
+#--------------------------------------------------------------------
+def criar_poligono(centro,raio,lados,rotacao=0):
+    cx, cy = centro
+    pontos = []
+    
+    for i in range(lados):
+        angulo = (2* math.pi / lados) * i + rotacao
+        x = cx + math.cos(angulo) * raio
+        y = cy + math.sin(angulo) * raio
+        pontos.append((x, y))
+        
+    return pontos
+#-------------------------------------------------------------------    
+camadas = [
+    {"raio": 50, "fase": 0, "cor":(255,200,0)},# Núcleo
+    {"raio": 110, "fase": 1, "cor":(255,140,0)},# Sistema
+    {"raio": 170, "fase": 2, "cor":(255,110,40)},# Serviços
+    {"raio": 230, "fase": 3, "cor":(255,180,120)},# Usuario
+]
+
+tempo = 0
+rodando = True
+#--------------------------------------------------------------------
+#LOOP PRINCIPAL
+#--------------------------------------------------------------------
+while rodando:
+    tela.fill((12,12,12))
+    
+    for evento in pygame.event.get():
+        if evento.type == pygame.QUIT:
+            rodando = False
+            
+        if evento.type == pygame.KEYDOWN:
+            if evento.key == pygame.K_ESCAPE:
+                rodando = False
+                
+    #TEMPO CONTROLA ANIMAÇÃO            
+    tempo += 0.02 
+    
+    #----------------------------------------------------------------
+    #Desenho das camadas
+    #----------------------------------------------------------------  
+    
+    
+    
+    for camada in camadas:
+        pulso = math.sin(tempo + camada["fase"]) * 6 #amenta ou diminue o pulso
+        raio_atual = camada["raio"] + pulso
+        
+        pontos = criar_poligono(
+            CENTRO,
+            raio_atual,
+            lados=6, #quanto mais lados, mais "circular"
+            rotacao=0 #gira o poligono, se usar zero ele para. 
+            
+            #lados= 3 - triângulo
+            #lados= 4 - quadrado
+            #lados= 6 - hexágono
+            #lados= 20 - quase um circulo
+        )
+        
+        pygame.draw.polygon(
+            tela,
+            camada["cor"],
+            pontos,
+            2  #espessura da linha
+        )             
+        
+    pygame.display.flip() 
+    clock.tick(60)   
+
+pygame.quit()
