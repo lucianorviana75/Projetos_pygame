@@ -42,18 +42,7 @@ Executável: PyInstaller
 Instalador: Inno Setup
 Plataforma: Windows
 
-The Game/
-├─ src/
-│  ├─ jogo_main_nucleo.py
-│  ├─ config.py
-│  ├─ entities.py
-│  ├─ portals.py
-│  └─ core.py
-├─ assets/
-├─ installer/
-│  └─ Nucleo.iss
-├─ README.md
-└─ .gitignore
+
 🔖 Versão
 
 Versão atual: v1.0.0 (Pre-release)
@@ -73,5 +62,16 @@ Desenvolvido por LRViana
 
 ```bash
 
-
+The Game/
+├─ src/
+│  ├─ jogo_main_nucleo.py
+│  ├─ config.py
+│  ├─ entities.py
+│  ├─ portals.py
+│  └─ core.py
+├─ assets/
+├─ installer/
+│  └─ Nucleo.iss
+├─ README.md
+└─ .gitignore
 
